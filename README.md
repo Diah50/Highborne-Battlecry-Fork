@@ -22,7 +22,7 @@ People who worked on this project is credited here.
 * Merol - Consultant
 * TheSpaniard - Consultant
 
-#Shotcaller Previous Information
+# Shotcaller Previous Information
 
 https://spicylobster.itch.io/shotcaller
 
