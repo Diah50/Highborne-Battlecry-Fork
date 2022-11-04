@@ -32,13 +32,14 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Shotcall"
+config/name="Highborne RTS"
+config/description="A game in the spirit of Warlords Battlecry"
 run/main_scene="res://game.tscn"
 run/delta_smoothing=false
 boot_splash/image="res://assets/waterfall/swords.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://assets/icon.png"
+config/icon="res://HBIcon.png"
 
 [autoload]
 
