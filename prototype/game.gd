@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 # self = game
 
@@ -36,7 +36,10 @@ onready var ui = get_node("ui")
 onready var selection = get_node("selection")
 onready var utils = get_node("utils")
 onready var test = get_node("test")
-onready var pause_menu = $transitions/pause_menu
+onready var background = $"%background"
+onready var main_menu = $menu/main_menu
+onready var pause_menu = $menu/pause_menu
+onready var team_selection_menu = $menu/team_selection_menu
 
 var map:Node
 
@@ -50,7 +53,8 @@ var victory:String
 
 
 func _ready():
-	get_tree().paused = true
+	#get_tree().paused = true
+	ui.show()
 #	randomize()
 	
 	WorldState.set_state("is_game_active", false)
@@ -76,18 +80,18 @@ func build():
 		built = true
 		
 		if test.unit: # debug units
-			ui.main_menu.get_node("container/play_button").play_down()
+			resume()
 
 
 func map_loaded():
 	if not started:
 		started = true
-		paused = false
+		resume()
 		WorldState.set_state("is_game_active", true)
 		
 		maps.setup_buildings()
 		map.blocks.setup_quadtree()
-		#Engine.time_scale = 3
+		#Engine.time_scale = 2
 		
 		rng.randomize()
 		maps.setup_lanes()
@@ -110,10 +114,9 @@ func map_loaded():
 
 
 func _physics_process(delta):
-	if started: collision.process(delta)
-	for unit1 in all_units:
-		if unit1.agent._goals:
-			unit1.agent.process(delta)
+	if started:
+		collision.process(delta)
+		GoapGoals.process(all_units, delta)
 
 
 func can_control(unit1):
@@ -135,6 +138,7 @@ func units_sec_cycle(): # called every second
 
 
 func resume():
+	background.visible = false
 	pause_menu.visible = false
 	paused = false
 	get_tree().paused = false
@@ -153,7 +157,7 @@ func pause():
 	ui.hide_all()
 	ui.get_node('mid').visible = true
 	ui.minimap.visible = false
-	ui.get_node("mid/team_selection_menu").visible = false
+	team_selection_menu.visible = false
 
 func exit():
 	get_tree().quit(0)
@@ -177,10 +181,12 @@ func start(red_team_leaders, blue_team_leaders, _player_team, map_index):
 		enemy_choose_leaders = blue_team_leaders
 		
 	if map_index == 1:
-		maps.current_map = "1lane_map"
+		maps.current_map = "one_lane_map"
 	else:
-		maps.current_map = "3lane_map"
+		maps.current_map = "three_lane_map"
 	
 	maps.load_map(maps.current_map)
-	$main_menu.visible = false
+	main_menu.visible = false
+	team_selection_menu.visible = false
+	background.visible = false
 	resume()

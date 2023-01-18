@@ -13,8 +13,6 @@ var rect_layer: Node
 var shop:Node
 var controls_menu:Node
 var orders_menu:Node
-var main_menu:Node
-var main_menu_background:Node
 var leaders_icons:Node
 var orders_button:Node
 var shop_button:Node
@@ -51,7 +49,8 @@ func _ready():
 	EventMachine.register_listener(Events.ONE_SEC, self, "count_time")
 	
 	EventMachine.register_listener(Events.GAME_END, self, "handle_game_end")
-
+	
+	hide_all()
 
 func process():
 	# if opt.show.fps:
