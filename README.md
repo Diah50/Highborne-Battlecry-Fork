@@ -16,7 +16,6 @@ https://discord.gg/mbPujKc5TV
 People who worked on this project is credited here.
 
 * Diahborne - Lead Artist/Designer
-* Plexsoup - Programmer
 * Bea - Programmer
 * Hellhound/Bestia - Programmer
 * Merol - Consultant
